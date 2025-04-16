@@ -5,14 +5,14 @@ GitHub Repository:https://github.com/Ploopy157/Solo-Project-WindowsTextP
 Wireframe Link: https://share.balsamiq.com/c/jAqzczVeowHTxS3NqknaHh.jpg File also in repo
 Bonus Features: Responsiveness, File Upload
 
-Summary. A Simple Note Taker, with Windows XP Styling
-Users can use CRUD for different kinds of text files, which dictate the editability and the view that renders when you open a file.
+Summary: A Simple Note Taker, with Windows XP Styling
+	Users can use CRUD for different kinds of text files, which dictate the editability and the view that renders when you open a file.
 
-Extra Validations and CRUD Functionality will be in the Users table, with an option after making the account to add a custom Image,
-Change your Username/Password, and extra Requirements that the First and the Last account Must be an Administrator. 
+	Validations and full CRUD Functionality will be in the Users table, with an option after making the account to upload a custom Image,
+	Change your Username/Password, and extra Requirements that the First account made and the Last account left Must be an Administrator. 
 
-Files will have: name, text, file_type, and is_shared values that the user can edit. Name and File Type are required, IsShared is Boolean,
- though all the stats will be Visible in the file's "update" page. ("Properties")
+	Files will have: name, text, file_type, and is_shared values that the user can edit. Name and File Type are required, IsShared is Boolean,
+ 	though all the stats will be Visible in the file's "update" page. ("Properties")
 
 All Users Can see all Shared Files, Only Administrators can Edit/Delete Shared Files that aren't their own.
 
@@ -48,9 +48,9 @@ Views:
 	
 
 Database:
-Users: username(varchar), password(text), is_admin(bool), profile_picture(Image/Link)(This is the thing I have to learn), created_at(DATETIME), updated_at(DATETIME)
+	Users: username(varchar), password(text), is_admin(bool), profile_picture(Image/Link)(This is the thing I have to learn), created_at(DATETIME), updated_at(DATETIME)
 
-Files: name(varchar), text(LongText), FileType(varchar), is_shared(Bool), user_id(INT- Foreign Key), created_at(DATETIME), updated_at(DATETIME)
+	Files: name(varchar), text(LongText), FileType(varchar), is_shared(Bool), user_id(INT- Foreign Key), created_at(DATETIME), updated_at(DATETIME)
 
 Validations:
 	Users: Name is Required, Name Less than 20 Characters, No Numbers/Special Characters in Name,.
@@ -64,7 +64,7 @@ Validations:
 
 
 Future Plans:
-More File types such as Spreadsheets, or "apps" such as a Google Maps API,  or games, like Minesweeper or Memory Match (Could use an API for random images)
+	More File types such as Spreadsheets, "apps" such as a Google Maps API or a stat counter for my ROBLOX game,  or games, like Minesweeper or Memory Match (Could use an API for random images)
 
 
 
