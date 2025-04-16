@@ -1,0 +1,69 @@
+Nathan Taylor Solo Project - "Windows TextP"
+
+Stack: Python/Flask
+GitHub Repository:
+
+Summary. A Simple Note Taker, with Windows XP Styling
+Users can use CRUD for different kinds of text files, which dictate the editability and the view that renders when you open a file.
+
+Extra Validations and CRUD Functionality will be in the Users table, with an option after making the account to add a custom Image,
+Change your Username/Password, and extra Requirements that the First and the Last account Must be an Administrator. 
+
+Files will have name, text, file_type, and is_shared values that the user can edit. Name is Required and File Type are required, IsShared is Boolean,
+ though all the stats will be Visible in the file's "update" page. ("Properties")
+
+All Users Can see all Shared Files, Only Administrators can Edit/Delete Shared Files that aren't their own.
+
+
+Update and Delete for Users, First/Last user MUST be Administrator.
+
+Views: 
+	Login/Registration: 
+	Logins will be listed on the side, you will have so select your Username from a list, rather than type it in. 
+	
+	All Pages: Standard Background, When You click the "Task Bar", it opens up a turns on a "logout" <div>, that Displays your Name and Profile Picture.
+	This will be in the place of a standard Header.
+	
+	Home: 
+	Lists Other Views: "Edit Users", "Shared Files", My Files" Each Button Requires Double Click.
+	
+
+	Edit Users: List with at least RUD for Users, (Bonus to myself to also have 2nd Create form here.) 
+	This is where you get the option to upload an image, an admin account can change other user's info, and make them admins as well.
+	If Deleting Users, Last User Must be an Admin, If You delete Yourself, You will be logged Out.
+	(A newly Created User can be created as an admin, so you don't get stuck with no administrators.)
+	
+	Shared files: a List of All files where IsShared == True, Only Admins can delete files that they did not create.
+
+	My Files: A List of only the logged in user's files Also has a button to create a new file. (I might try and make this a Right-Click)
+	You Select the File Type and Name when this button is hit. To change the "Data" you have to "open" The File.
+
+	File: get one file, Opens a single File and has Edit Functionality for Data, Name, and IsShared.
+	File will have different views depending on the File Type of Text, Richtext, or PDF
+	Bonus To Me - Can't edit PDF, but you can change another file to it.
+
+	Properties: Lets You Change Name, File Type, and Is Shared, Delete Button. Also Lists Created at, Updated at, and creator. 
+	Only Admins can access Properties for Files that aren't theirs, From the Shared Files window.
+	
+
+Database:
+Users: username(varchar), password(text), is_admin(bool), profile_picture(Image/Link)(This is the thing I have to learn), created_at(DATETIME), updated_at(DATETIME)
+
+Files: name(varchar), text(LongText), FileType(varchar), is_shared(Bool), user_id(INT- Foreign Key), created_at(DATETIME), updated_at(DATETIME)
+
+Validations:
+	Users: Name is Required, Name Less than 20 Characters, No Numbers/Special Characters in Name,.
+	Password is Reqired, PW and ConfirmPW Must Match, Password must be 6 Characters.
+	If admin is checked, Must require 1 Special Character and 1 Number.
+	First User Must be an Admin!
+	(Image is not required, as it is changed after Login, and will have a default Fallback)
+
+	Files: Name is Required, Name cannot contain Special Characters, 
+	(Cannot be edit unless you are the User_id or your User is an Administrator.)
+
+
+
+
+
+
+
