@@ -1,7 +1,9 @@
 Nathan Taylor Solo Project - "Windows TextP"
 
 Stack: Python/Flask
-GitHub Repository:
+GitHub Repository:https://github.com/Ploopy157/Solo-Project-WindowsTextP
+Wireframe Link: https://share.balsamiq.com/c/jAqzczVeowHTxS3NqknaHh.jpg File also in repo
+Bonus Features: Responsiveness, File Upload
 
 Summary. A Simple Note Taker, with Windows XP Styling
 Users can use CRUD for different kinds of text files, which dictate the editability and the view that renders when you open a file.
@@ -9,13 +11,12 @@ Users can use CRUD for different kinds of text files, which dictate the editabil
 Extra Validations and CRUD Functionality will be in the Users table, with an option after making the account to add a custom Image,
 Change your Username/Password, and extra Requirements that the First and the Last account Must be an Administrator. 
 
-Files will have name, text, file_type, and is_shared values that the user can edit. Name is Required and File Type are required, IsShared is Boolean,
+Files will have: name, text, file_type, and is_shared values that the user can edit. Name and File Type are required, IsShared is Boolean,
  though all the stats will be Visible in the file's "update" page. ("Properties")
 
 All Users Can see all Shared Files, Only Administrators can Edit/Delete Shared Files that aren't their own.
 
-
-Update and Delete for Users, First/Last user MUST be Administrator.
+Create, read, update and delete for files and users, First/Last user must be an Administrator, deleted User's files are deleted.
 
 Views: 
 	Login/Registration: 
@@ -28,10 +29,10 @@ Views:
 	Lists Other Views: "Edit Users", "Shared Files", My Files" Each Button Requires Double Click.
 	
 
-	Edit Users: List with at least RUD for Users, (Bonus to myself to also have 2nd Create form here.) 
+	Edit Users: List with at least RUD for Users
 	This is where you get the option to upload an image, an admin account can change other user's info, and make them admins as well.
 	If Deleting Users, Last User Must be an Admin, If You delete Yourself, You will be logged Out.
-	(A newly Created User can be created as an admin, so you don't get stuck with no administrators.)
+	When a User is Deleted, so are all of their files.
 	
 	Shared files: a List of All files where IsShared == True, Only Admins can delete files that they did not create.
 
@@ -53,13 +54,13 @@ Files: name(varchar), text(LongText), FileType(varchar), is_shared(Bool), user_i
 
 Validations:
 	Users: Name is Required, Name Less than 20 Characters, No Numbers/Special Characters in Name,.
-	Password is Reqired, PW and ConfirmPW Must Match, Password must be 6 Characters.
-	If admin is checked, Must require 1 Special Character and 1 Number.
+	Password is Reqired, PW and ConfirmPW Must Match, Password must be a minimum of 6 Characters.
+ 	Pasword Must have 1 Special Character and 1 Number.
 	First User Must be an Admin!
 	(Image is not required, as it is changed after Login, and will have a default Fallback)
 
 	Files: Name is Required, Name cannot contain Special Characters, 
-	(Cannot be edit unless you are the User_id or your User is an Administrator.)
+	(Cannot be edited unless you are the User_id or your User is an Administrator.)
 
 
 
