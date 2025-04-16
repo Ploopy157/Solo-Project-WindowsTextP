@@ -63,6 +63,8 @@ Validations:
 	(Cannot be edited unless you are the User_id or your User is an Administrator.)
 
 
+Future Plans:
+More File types such as Spreadsheets, or "apps" such as a Google Maps API,  or games, like Minesweeper or Memory Match (Could use an API for random images)
 
 
 
