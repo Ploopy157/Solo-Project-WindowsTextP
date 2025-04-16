@@ -41,10 +41,10 @@ Views:
 
 	File: get one file, Opens a single File and has Edit Functionality for Data, Name, and IsShared.
 	File will have different views depending on the File Type of Text, Richtext, or PDF
-	Bonus To Me - Can't edit PDF, but you can change another file to it.
+	You Cannot edit a PDF's text, but you can change another file to it.
 
 	Properties: Lets You Change Name, File Type, and Is Shared, Delete Button. Also Lists Created at, Updated at, and creator. 
-	Only Admins can access Properties for Files that aren't theirs, From the Shared Files window.
+	All Users Can View, Only the Creator and Admin can edit.
 	
 
 Database:
