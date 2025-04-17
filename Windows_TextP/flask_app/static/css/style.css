@@ -1,0 +1,50 @@
+
+body{
+    background-image: url('../Images/Bliss.jpg');
+    background-size: 100%;
+    image-rendering:pixelated
+}
+
+#notification_box{
+    margin: 40vh auto;
+    border: thin solid blue;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    width: 20%;
+}
+#notification_header{
+    height : 30px;
+    display: flex;
+    justify-content: space-between;
+    color:white;
+    margin-top: none;
+    background-color: blue;
+}
+#main_box{
+    text-align: center;
+}
+button{
+    width: 20%;
+    margin-bottom: 15px
+}
+#corner_buttons{
+    display: flex;
+}
+.corner_button{
+    border: solid white thin;
+    border-radius: 4px;
+    padding:4px;
+    margin: 0;
+    width:17px;
+    height:17px;
+    text-align: center;
+    margin:2px
+}
+#x_button{
+    background-color: rgb(255, 0, 21);
+
+}
+h2{
+    padding: 4px;
+    margin: 0;
+}
