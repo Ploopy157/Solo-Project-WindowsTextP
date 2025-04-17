@@ -1,0 +1,93 @@
+.body{
+    background-image: url("../images/login_background.jpg");
+}
+
+h1, h2{
+    padding: 0.5%;
+    text-align: center;
+    font-size: xx-large;
+}
+
+#registerDiv h2{
+    color: #146FF8;
+}
+
+#loginDiv h2{
+    color: green;
+}
+
+form{
+    font-size: x-large;
+    margin: auto;
+    margin :0 15%;
+}
+
+label{
+    margin-top: 10px;
+    padding: 2%;
+    display: inline-flex;
+}
+
+.labelClass{
+    width: 200px;
+    margin: 0;
+}
+
+input{
+    width: 100%;
+    border: solid black;
+    font-size: large;
+    padding: 2%;
+    border-radius: 10px;
+}
+
+.error{
+    color: red;
+    font-size: medium;
+    width: 100%;
+    margin: 10px auto;
+}
+
+.SubmitButton{
+    color: white;
+    padding: 3%;
+    width: auto;
+    margin: 3% auto;
+    border-radius: 10px;
+    align-self: flex-start;
+    font-size: medium;
+}
+
+#splitPage{
+    display: flex;
+    justify-content: space-around;
+}
+
+#registerDiv, #loginDiv{
+    width: 25%;
+    background-color: black;
+    border-radius: 2%;
+    color: white;
+}
+
+#registerDiv .SubmitButton{
+    background-color: #146FF8;
+}
+
+#loginDiv .SubmitButton{
+    background-color: green;
+}
+
+.flashes{
+    padding: 10px 20px;
+    background-color: rgb(255, 206, 214);
+    color: red;
+    border-radius: 7px;
+    border: solid red thin;
+    margin: 4% 5    ; 
+}
+
+ul{
+    list-style-type: none;
+}
+

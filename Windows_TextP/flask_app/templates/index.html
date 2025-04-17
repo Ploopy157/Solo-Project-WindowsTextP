@@ -1,0 +1,91 @@
+<html>
+<head>
+    <title>Login/Register</title>
+</head>
+<link rel="stylesheet" type="text/css" href="../static/css/login.css">
+<body>
+
+
+    <h1>Windows TextP</h1>
+    {% with messages =get_flashed_messages(category_filter=["logout"]) %}     <!-- declare a variable called messages -->
+    {% if messages %}                            <!-- check if there are any messages -->
+        <ul>
+        {% for message in messages %}
+            <li><h2 style = "color:green">{{ message }}</h2></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <div id = splitPage>
+        <div id = "registerDiv">
+            <h2>Register</h2>
+            <form action = "/register" method = "POST">
+
+                <label for = "first_name">First Name:</label>
+                <br>
+                <input name = "first_name"/>
+                <br>
+
+                <label for = "last_name">Last Name:</label>
+                <br>
+                <input name = "last_name"/>
+                <br>
+
+                <label for = "email">Email:</label>
+                <br>
+                <input type = "email" name = "email"/>
+                <br>
+
+                <label for = "password">Password</label>
+                <br>
+                <input name = "password" type = "password"/>
+                <br>
+
+                <label for = "confirm">Confirm PW:</label>
+                <br>
+                <input name = "confirm" type = "password"/>
+                <br>
+
+                <input class = "SubmitButton" type = "submit" value = "Register"/>
+                {% with messages = get_flashed_messages(category_filter=["register"]) %}     <!-- declare a variable called messages -->
+                {% if messages %}                            <!-- check if there are any messages -->
+                    <ul class=flashes>
+                    {% for message in messages %}
+                        <li class="error">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+            </form>
+        </div>
+
+        <div id = "loginDiv">
+            <h2>Login</h2>
+            <form action = "/login" method = "POST">
+
+                <label for = "loginEmail">Email:</label>
+                <br>
+                <input type = "email" name = "loginEmail"/>
+                <br>
+
+                <label for = "loginPassword">Password</label>
+                <br>
+                <input name = "loginPassword" type = "password"/>
+                <br>
+
+                <input class = "SubmitButton" type = "submit" value = "Login"/>
+                {% with messages =get_flashed_messages(category_filter=["login"]) %}     <!-- declare a variable called messages -->
+                {% if messages %}                            <!-- check if there are any messages -->
+                    <ul class=flashes>
+                    {% for message in messages %}
+                        <li class="error">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+            </form>
+        </div>
+    </div>
+</body>
+</html>
