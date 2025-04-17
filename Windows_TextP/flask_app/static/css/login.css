@@ -1,5 +1,14 @@
-.body{
+html{
+    background-color: rgb(0, 0, 129);
+}
+#content{
     background-image: url("../images/login_background.jpg");
+    background-size :cover;
+    height:100vh
+}
+
+h1{
+
 }
 
 h1, h2{

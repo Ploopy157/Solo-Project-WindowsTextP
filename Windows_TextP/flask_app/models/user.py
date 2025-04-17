@@ -1,7 +1,6 @@
 # import the function that will return an instance of a connection
 from flask_app.config.mysqlconnection import connect_to_mysql
 from flask import flash
-from flask_app.static.images import default_pfp
 #only needed for Email Validation
 import re
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -15,7 +14,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
-        self.profile_picture = default_pfp
+        self.profile_picture = None
 
 #GET ALL
     @classmethod

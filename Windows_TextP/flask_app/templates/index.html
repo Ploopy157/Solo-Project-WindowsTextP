@@ -4,8 +4,7 @@
 </head>
 <link rel="stylesheet" type="text/css" href="../static/css/login.css">
 <body>
-
-
+<div id="content">
     <h1>Windows TextP</h1>
     {% with messages =get_flashed_messages(category_filter=["logout"]) %}     <!-- declare a variable called messages -->
     {% if messages %}                            <!-- check if there are any messages -->
@@ -87,5 +86,6 @@
             </form>
         </div>
     </div>
+</div>
 </body>
 </html>
