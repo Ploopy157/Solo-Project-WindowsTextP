@@ -8,7 +8,7 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 class User:
     def __init__( self , data ):
         self.id = data['id']
-        self.first_name = data['first_name']
+        self.username = data['username']
         self.is_admin = data['is_admin']
         self.password = data['password']
         self.created_at = data['created_at']
@@ -36,16 +36,16 @@ class User:
         results = connect_to_mysql('windows_textp_db').query_db(query, {"id": id})
         # "results" is an array of dictionaries.
         if not results:
-            return false
+            return False
         user = results[0] 
         return user
 
 #GET User by Email
     @classmethod
-    def get_by_email(cls, email):
-        query = "SELECT * FROM users WHERE email = %(email)s;"
+    def get_by_username(cls, username):
+        query = "SELECT * FROM users WHERE username = %(username)s;"
         print(query)
-        result = connect_to_mysql('windows_textp_db').query_db(query, {"email": email})
+        result = connect_to_mysql('windows_textp_db').query_db(query, {"username": username})
         if len(result) < 1:
             return False
         return cls(result[0])
@@ -53,7 +53,7 @@ class User:
 #CREATE    
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO users (first_name, is_shared, password, created_at, updated_at) VALUES (%(first_name)s, %(is_shared)s, %(email)s, %(password)s, NOW(), NOW());"
+        query = "INSERT INTO users (username, is_admin, password, created_at, updated_at) VALUES (%(username)s, %(is_admin)s, %(password)s, NOW(), NOW());"
         # insert call returns ID
         data_id = connect_to_mysql('windows_textp_db').query_db(query, data) 
         return data_id
@@ -63,7 +63,7 @@ class User:
     def update(cls, data):
         query = """
                 UPDATE users
-                SET first_name = %(first_name)s, is_shared = %(is_shared)s, password = %(password)s, updated_at = NOW()
+                SET user = %(username)s, is_admin = %(is_admin)s, password = %(password)s, updated_at = NOW()
                 WHERE id = %(id)s;"""
         results = connect_to_mysql('windows_textp_db').query_db(query, data)
         return results
@@ -83,9 +83,12 @@ class User:
         if len(form['username']) < 2:
             flash("First name must be at least 2 characters.", "register")
             is_valid = False
-            if not str.isalpha(form['first_name']):
+            if not str.isalpha(form['username']):
                 flash("First Name must contain only Letters.", "register")
                 isvalid = False
+                if User.get_by_username(form['username']):
+                    flash("Somebody already used this name!", "register")
+                    is_valid = False
                 
 
         if len(form['password']) < 8:

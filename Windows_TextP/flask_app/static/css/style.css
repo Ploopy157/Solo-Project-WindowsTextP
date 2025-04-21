@@ -1,33 +1,43 @@
-
+:root{
+    --xp-blue: #0054e3
+}
+body{
+    margin:0;
+    padding: 0;
+}
 body{
     background-image: url('../images/Bliss.jpg');
     background-size: 100%;
     image-rendering:pixelated
 }
 
-#notification_box{
-    margin: 40vh auto;
-    border: thin solid blue;
+#xp_window{
+    position:fixed;
+    top:40vh;
+    right: 40vw;
+    border: solid var(--xp-blue);
     background-color: antiquewhite;
     border-radius: 5px;
     width: 20%;
+    box-shadow: 3px 3px 6px black;
 }
-#notification_header{
+.window_header{
+    padding: 2px;
     height : 30px;
     display: flex;
     justify-content: space-between;
     color:white;
     margin-top: none;
-    background-color: blue;
+    background-color: var(--xp-blue);
 }
-#main_box{
+.main_box{
     text-align: center;
 }
 button{
     width: 20%;
     margin-bottom: 15px
 }
-#corner_buttons{
+.corner_buttons{
     display: flex;
 }
 .corner_button{
@@ -40,11 +50,85 @@ button{
     text-align: center;
     margin:2px
 }
-#x_button{
+.x_button{
     background-color: rgb(255, 0, 21);
 
 }
 h2{
     padding: 4px;
     margin: 0;
+}
+
+
+.icon_list{
+    margin-top:32px;
+    display: inline-block;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 96px;
+    margin-left: 15px;
+}
+
+.icon{
+    text-align: center;
+}
+.icon:hover{
+    background-color: rgba(255, 255, 255, 0.2);
+    border: thin solid var(--xp-blue)
+}
+
+.icon_img{
+    height: 64px;
+}
+
+.icon p{
+    margin-top: 10px;
+}
+
+a{
+    color:black;
+    text-decoration: none;
+}
+
+.footer{
+
+    position:fixed;
+    bottom: 0px;
+    width: 100%;
+    margin:0;
+    padding: 0;
+    display: flex;
+    flex-direction: column-reverse;
+}
+#taskbar{
+    background-color: var(--xp-blue);
+}
+
+#start_button{
+    display: flex;
+    background-color:green;
+    color: white;
+    font-size: x-large;
+    padding: 2px;
+    height: 40px;
+    margin: 0;
+    width:8%;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    align-items: center;
+    font-style: italic;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#start_button:hover{
+    background-color: rgb(0, 170, 0);
+}
+#start_button img{
+    width: 32px;
+    margin-right: 5%;
+}
+.start_menu{
+    background-color: antiquewhite;
+    width: 20%;
+    height: 30%;
 }

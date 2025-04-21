@@ -36,14 +36,19 @@ def delete_user(user_id):
 #CREATE METHOD
 @app.route('/register', methods=["POST"])
 def create_user():
+    print(request.form)
     if not User.validate_form(request.form):
         return redirect('/')# redirect to the route where the user form is rendered.
 
     pw_hash = bcrypt.generate_password_hash(request.form['password'])
+
+    if "is_admin" in request.form:
+        adminTrue = True
+    else:
+        adminTrue = False
     data = {
-        "first_name" : request.form["first_name"],
-        "last_name" :request.form["last_name"],
-        "email" : request.form["email"],
+        "username" : request.form["username"],
+        "is_admin" : adminTrue,
         "password" : pw_hash
     }
 
@@ -54,15 +59,15 @@ def create_user():
 #Login Method
 @app.route('/login', methods=["POST"])
 def login():
-    user_in_db = User.get_by_email(request.form["loginEmail"])
+    user_in_db = User.get_by_username(request.form["username"])
     # user is not registered in the db
     if not user_in_db:
-        flash("Invalid Email/Password", "login")
+        flash("Invalid Username/Password", "login")
         return redirect("/")
         
     if not bcrypt.check_password_hash(user_in_db.password, request.form['loginPassword']):
         # if we get False after checking the password
-        flash("Invalid Email/Password", "login")
+        flash("Invalid Username/Password", "login")
         return redirect('/')
     # if the passwords matched, we set the user_id into session
     session['user'] = user_in_db.id
