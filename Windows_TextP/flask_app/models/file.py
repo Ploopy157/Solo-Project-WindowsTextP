@@ -71,29 +71,29 @@ class File:
     @classmethod
     def get_all_files_with_user(cls):
         # Get all files, and their one associated User that created it
-        query = "SELECT * FROM files JOIN users ON files.user_id = users.id;"
+        query = "SELECT * FROM files JOIN users ON files.user_id = users.id WHERE is_shared = 1;"
         results = connect_to_mysql('windows_textp_db').query_db(query)
         all_files = []
-        for row in results:
-            # Create a file class instance from the information from each db row
-            one_file = cls(row)
-            # Prepare to make a User class instance, looking at the class in models/user.py
-            one_files_author_info = {
-                # Any fields that are used in BOTH tables will have their name changed, (id, created_at, updated_at)
-                # which depends on the order you put them in the JOIN query, use a print statement in your classmethod to show this.
-                "id": row['users.id'], 
-                "first_name": row['first_name'],
-                "last_name": row['last_name'],
-                "email": row['email'],
-                "password": row['password'],
-                "created_at": row['users.created_at'],
-                "updated_at": row['users.updated_at']
-            }
-            # Create the class instance
-            author = user.User(one_files_author_info)
-            # Associate thee class instances
-            one_file.user = author
-            all_files.append(one_file)
+        if results != False:
+            for row in results:
+                # Create a file class instance from the information from each db row
+                one_file = cls(row)
+                # Prepare to make a User class instance, looking at the class in models/user.py
+                one_files_author_info = {
+                    # Any fields that are used in BOTH tables will have their name changed, (id, created_at, updated_at)
+                    # which depends on the order you put them in the JOIN query, use a print statement in your classmethod to show this.
+                    "id": row['users.id'], 
+                    "username": row['username'],
+                    "is_admin": row['is_admin'],
+                    "password": row['password'],
+                    "created_at": row['users.created_at'],
+                    "updated_at": row['users.updated_at']
+                }
+                # Create the class instance
+                author = user.User(one_files_author_info)
+                # Associate thee class instances
+                one_file.user = author
+                all_files.append(one_file)
         return all_files
 
 #GET Files from USER
@@ -104,11 +104,11 @@ class File:
                     WHERE user_id = %(id)s;"""
         results = connect_to_mysql('windows_textp_db').query_db(query, data)
         all_files = []
-        for row in results:
-            # Create a file class instance from the information from each db row
-            one_file = cls(row)
-            all_files.append(one_file)
-
+        if results:
+            for row in results:
+                # Create a file class instance from the information from each db row
+                one_file = cls(row)
+                all_files.append(one_file)
         return all_files
 
 #GET Files from Name

@@ -36,7 +36,6 @@ def delete_user(user_id):
 #CREATE METHOD
 @app.route('/register', methods=["POST"])
 def create_user():
-    print(request.form)
     if not User.validate_form(request.form):
         return redirect('/')# redirect to the route where the user form is rendered.
 

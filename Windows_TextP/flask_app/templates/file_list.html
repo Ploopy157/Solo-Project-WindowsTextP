@@ -24,22 +24,55 @@
             <p>Shared Files</p>
         </div></a>
     </div>
-    <div class = "xp_window">
+    <div class = "file_window">
         <div class = "window_header">
-            <h2>Notice</h2>
+            {% if where ==   "shared_files" %}
+            <h2>Shared Files</h2>
+            {% else %}
+            <h2>My Files</h2>
+            {% endif %}
             <div class = "corner_buttons">
                 <p class = "corner_button">_</p>
                 <p class = "corner_button">⧉</p>
                 <button class = "x_button corner_button" onclick="closeNotification()">X</button>
             </div>
-
         </div>
 
-        <div class = main_box>
-        <p>This is a Notification</p>
-        <button id = "noticication_close" onclick="closeNotification()">Ok</button>
+        <div>
+            <div id = file_list>
+            {% for file in all_files %}
+                <a href = "files/{{file.id}}"><div class="icon">
+                {% if file.file_type == "txt" %}
+                    <img src="../static/images/txt_icon.png" alt="users icon" class="icon_img">
+                {% elif file.file_type == "rtf" %}
+                    <img src="../static/images/rtf_icon.png" alt="users icon" class="icon_img">
+                {% else %}
+                    <img src="../static/images/pdf_icon.png" alt="users icon" class="icon_img">
+                {% endif %}
+                    <p>{{file.name}}.{{file.file_type}}</p>
+                </div></a>
+            {% endfor %}
+            </div>
+
+            <form action = "/add_file" method = "POST">
+                <input type="hidden" name ="where" value={{where}} />
+
+                <label for = "is_shared">Shared File?
+                    <input type="checkbox" name = "is_shared">
+                </label>
+                
+                <label for="file_type" >File Type:
+                    <select name="file_type" id="file_type" value = "txt">
+                        <option value="txt">.txt</option>
+                        <option value = "rtf">.rtf</option>
+                    </select>
+                </label>
+                <input type="submit" value = "Add File">
+            </form>
+            
         </div>
     </div>
+
     <div class="footer">
         <div id="taskbar">
             <p id = "start_button">

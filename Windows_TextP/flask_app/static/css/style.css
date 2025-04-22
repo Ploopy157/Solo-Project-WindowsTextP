@@ -1,5 +1,6 @@
 :root{
-    --xp-blue: #0054e3
+    --xp-blue: #0054e3;
+    font-family: Arial, Helvetica, sans-serif;
 }
 body{
     margin:0;
@@ -11,7 +12,7 @@ body{
     image-rendering:pixelated
 }
 
-#xp_window{
+.xp_window{
     position:fixed;
     top:40vh;
     right: 40vw;
@@ -40,20 +41,26 @@ button{
 .corner_buttons{
     display: flex;
 }
+.x_button{
+
+    all: unset; /* resets almost everything, modern way */
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    display: inline;
+    background-color: rgb(255, 0, 21);
+}
 .corner_button{
     border: solid white thin;
     border-radius: 4px;
     padding:4px;
-    margin: 0;
     width:17px;
     height:17px;
     text-align: center;
     margin:2px
-}
-.x_button{
-    background-color: rgb(255, 0, 21);
 
 }
+
 h2{
     padding: 4px;
     margin: 0;
@@ -71,6 +78,9 @@ h2{
 
 .icon{
     text-align: center;
+    width: 128px;
+    height: 128px;
+    align-content: center;
 }
 .icon:hover{
     background-color: rgba(255, 255, 255, 0.2);
@@ -131,4 +141,48 @@ a{
     background-color: antiquewhite;
     width: 20%;
     height: 30%;
+}
+
+.file_window{
+    position:fixed;
+    top:15vh;
+    right: 30vw;
+    border: solid var(--xp-blue);
+    background-color: antiquewhite;
+    border-radius: 5px;
+    width: 40%;
+    box-shadow: 3px 3px 6px black;
+}
+
+#file_list{
+    height: 50vh;
+    padding: 20px;
+    display: flex;
+    border-bottom: solid thin black;
+}
+
+#add_file{
+    width: 15%;
+    padding: 6px;
+    margin: 10px 80%;
+    border-radius: 5px;
+}
+
+.file_window form{
+    padding: 10px;
+    font-size: large;
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: center;
+}
+
+.file_window input, .file_window label{
+    font-size: large;
+    margin: 0 10px;
+    align-content: center;
+}
+
+.file_window select{
+    font-size: large;
+    padding: 4px 10px;
 }

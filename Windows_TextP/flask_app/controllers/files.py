@@ -14,35 +14,46 @@ def home():
 
 #CREATE
 
-@app.route("/create_file", methods=["POST"])
+@app.route("/add_file", methods=["POST"])
 def create_file():
-    if not File.validate_form(request.form):
-        return redirect('/home')# redirect to the route where the user form is rendered.
-    
-
+    #NO VALIDATIONS ON CREATE
+    # if not File.validate_form(request.form):
+    #     return redirect('/home')# redirect to the route where the user form is rendered.
+    if request.form["is_shared"]:
+        shared = True
+    else:
+        shared = False
     data = {
-        "name" : request.form["name"],
+        "name" : "New File",
         "file_type" :request.form["file_type"],
-        "text" : request.form["text"],
+        "text" : "",
+        "is_shared": shared,
         "user_id":session["user"]
     }
-    if not File.check_name(data):
-        new_file_id = File.save(data) #Called in a variable to capture ID
-    else:
-        flash("File already Exists with that Name!", "add_file")
-    return redirect("/home")
+
+    new_file_id = File.save(data) #Called in a variable to capture ID
+    return redirect(f"{request.form["where"]}")
 
 #READ
 
-@app.route("/files")
+@app.route("/shared_files")
 def view_file_list():
     if not "user" in session:
-            return redirect("/")
+        return redirect("/")
 
     all_files = (File.get_all_files_with_user())
 
 
-    return render_template("file_list.html", user = User.get_one(session["user"]), all_files = all_files)
+    return render_template("file_list.html", user = User.get_one(session["user"]), all_files = all_files, where = "shared_files")
+
+@app.route("/my_files")
+def view_my_files():
+    if not "user" in session:
+        return redirect("/")
+
+    all_files = (File.get_one_users_files({"id":session["user"]}))
+
+    return render_template("file_list.html", user = User.get_one(session["user"]), all_files = all_files, where = "my_files")
 
 @app.route("/files/<int:id>")
 def view_file(id):
