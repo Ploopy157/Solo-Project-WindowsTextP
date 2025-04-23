@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Windows XP Browser
     </title>
-    <link rel="stylesheet" type="text/css" href="static/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
 </head>
 <body>
 
@@ -41,16 +41,24 @@
         <div>
             <div id = file_list>
             {% for file in all_files %}
-                <a href = "files/{{file.id}}"><div class="icon">
-                {% if file.file_type == "txt" %}
-                    <img src="../static/images/txt_icon.png" alt="users icon" class="icon_img">
-                {% elif file.file_type == "rtf" %}
-                    <img src="../static/images/rtf_icon.png" alt="users icon" class="icon_img">
-                {% else %}
-                    <img src="../static/images/pdf_icon.png" alt="users icon" class="icon_img">
-                {% endif %}
-                    <p>{{file.name}}.{{file.file_type}}</p>
-                </div></a>
+                <a href = "files/{{file.id}}">
+                    <div class="icon">
+                    {% if file.file_type == "txt" %}
+                        <img src="../static/images/txt_icon.png" alt="users icon" class="icon_img">
+                        
+                    {% elif file.file_type == "rtf" %}
+                        <img src="../static/images/rtf_icon.png" alt="users icon" class="icon_img">
+                    {% else %}
+                        <img src="../static/images/pdf_icon.png" alt="users icon" class="icon_img">
+                    {% endif %}
+                        <p>{{file.name}}.{{file.file_type}}</p>
+                        <div class = "dropdown">
+                            <p><a href="/files/{{file.id}}/properties">Properties</a></p>
+                            <p><a href="/files/delete/{{file.id}}">Delete</a></p>
+                        </div>
+                    </div>
+
+                </a>
             {% endfor %}
             </div>
 
@@ -60,7 +68,7 @@
                 <label for = "is_shared">Shared File?
                     <input type="checkbox" name = "is_shared">
                 </label>
-                
+
                 <label for="file_type" >File Type:
                     <select name="file_type" id="file_type" value = "txt">
                         <option value="txt">.txt</option>
@@ -85,6 +93,30 @@
             <a is = "logout" href = "/logout">Log Out</a>
         </div>
     </div>
+    {% with messages =get_flashed_messages(category_filter=["errors"]) %}     <!-- declare a variable called messages -->
+    {% if messages %}                            <!-- check if there are any messages -->
+    <div id = "error_window">
+        <div class = "window_header">
+            <h2>Error</h2>
+            <div class = "corner_buttons">
+                <p class = "corner_button">_</p>
+                <p class = "corner_button">⧉</p>
+                <button class = "x_button corner_button" onclick="closeNotification()">X</button>
+            </div>
+
+        </div>
+
+        <div class = main_box>
+            <div class = "error_message_box">
+                {% for message in messages %}
+                    <p class = "error_message">- {{ message }}</p>
+                {% endfor %}
+            </div>
+            <button id = "noticication_close" onclick="closeNotification()">Close</button>
+        </div>
+    </div>
+    {% endif %}
+    {% endwith %}
 </body>
 
 <script>
@@ -92,11 +124,16 @@
     // startButton.addEventListener(click, function(){
 
     // })
-    const notification_window = document.getElementById("xp_window")
+    const notification_window = document.getElementById("error_window")
 
     const closeNotification = () =>{
         notification_window.style.display = "none";
     };
+
+    const icons = document.getElementsByClassName("icon").oncontextmenu = function() {
+        alert('right click!')
+    }
+
 </script>
     
 

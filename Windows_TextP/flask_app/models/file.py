@@ -31,7 +31,6 @@ class File:
         query = """
                 SELECT * FROM files 
                 WHERE id = %(id)s;"""
-        print(query)
         results = connect_to_mysql('windows_textp_db').query_db(query, {"id": id})
         # "results" is an array of dictionaries.
         if not results:
@@ -116,7 +115,8 @@ class File:
     def check_name(cls, data):
         # Get all files, and their one associated User that created it
         query = """SELECT * FROM files 
-                    WHERE name = %(name)s;"""
+                    WHERE name = %(name)s
+                    AND file_type = %(file_type)s;"""
         results = connect_to_mysql('windows_textp_db').query_db(query, data)
         all_files = []
         for row in results:
@@ -144,23 +144,4 @@ class File:
             flash("Name is Required!", "add_file")
             is_valid = False
 
-        
-        if form['file_type']:
-            if len(form['file_type']) < 3:
-                flash("Filling be at least 3 characters.", "add_file")
-                is_valid = False
-        else:
-            flash("Filling is Required!", "add_file")
-            is_valid = False
-
-        
-        if form['text']:
-            if len(form['text']) < 3:
-                flash("Crust be at least 3 characters.", "add_file")
-                is_valid = False
-        else:
-            flash("Crust is Required!", "add_file")
-            is_valid = False
-
-        print(is_valid)
         return is_valid

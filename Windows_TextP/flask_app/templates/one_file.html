@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows XP Browser
+    </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body>
+
+    <div class="icon_list">
+        
+        <a href = "/edit_users"><div class="icon">
+            <img src="../static/images/users_icon.png" alt="users icon" class="icon_img">
+            <p>User Accounts</p>
+        </div></a>
+        <a href = "/my_files"><div class="icon">
+            <img src="../static/images/folder_icon.png" alt="users icon" class="icon_img">
+            <p>My Files</p>
+        </div></a>
+        <a href = "/shared_files"><div class="icon">
+            <img src="../static/images/folder_icon.png" alt="users icon" class="icon_img">
+            <p>Shared Files</p>
+        </div></a>
+    </div>
+    {% if file.file_type != "txt" %}
+    <form class = "file_editor fancy_file" action = "/update_file/{{file.id}}" method = "POST">
+    {% else %}
+    <form class = "file_editor" action = "/update_file/{{file.id}}" method = "POST">
+    {% endif %}
+        <div class = "window_header">
+            <h2 class = "edit_name"><input class = "edit_name" type = "text" value = "{{file.name}}" name = "name" />.{{file.file_type}}</h2>
+            <div class = "corner_buttons">
+                <p class = "corner_button">_</p>
+                <p class = "corner_button">⧉</p>
+                <a class = "x_button corner_button" href = "/{{where}}">X</a>
+            </div>
+        </div>
+        <div>
+            {% if file.file_type == "pdf" %}
+            <div class="file_text_holder">
+                <p class="file_text">{{file.text}}</p>
+            </div>
+            {% else %}
+            <div class="file_text_holder">
+                <textarea name = "text" class = 'file_text'>{{file.text}}</textarea>
+            </div>
+            {% endif %}
+            <div class="form">
+                <input type="hidden" name ="where" value={{where}} />
+
+                <label for = "is_shared">Shared File?
+                    {% if file.is_shared == "1" %}
+                    <input type="checkbox" name = "is_shared" checked/>
+                    {% else %}
+                    <input type="checkbox" name = "is_shared"/>
+                    {% endif %}
+                </label>
+            
+                <label for="file_type" >File Type:
+                    <select name="file_type" id="file_type" value = "{{file.file_type}}">
+                        <option value="{{file.file_type}}">.{{file.file_type}}</option>
+                        <option value="txt">.txt</option>
+                        <option value = "rtf">.rtf</option>
+                        <option value = "pdf">.pdf</option>
+                    </select>
+                </label>
+                <input type="submit" value = "Save">
+            </div>
+        </div>     
+    </form>
+
+    <div class="footer">
+        <div id="taskbar">
+            <p id = "start_button">
+                <img src="../static/images/logo.png">start</p>
+        </div>
+        <div class="start_menu">
+            <div id="menu_header">
+                <p>{{user.username}}</p>
+            </div>
+            <a is = "logout" href = "/logout">Log Out</a>
+        </div>
+    </div>
+</body>
+
+<script>
+    const startButton = document.getElementById("start_button")
+    // startButton.addEventListener(click, function(){
+
+    // })
+    const notification_window = document.getElementById("xp_window")
+
+    const closeNotification = () =>{
+        notification_window.style.display = "none";
+    };
+</script>
+    
+
+</html>

@@ -12,24 +12,33 @@ body{
     image-rendering:pixelated
 }
 
-.xp_window{
+.xp_window, #error_window{
     position:fixed;
     top:40vh;
     right: 40vw;
-    border: solid var(--xp-blue);
+    border: 5px solid var(--xp-blue);
     background-color: antiquewhite;
     border-radius: 5px;
     width: 20%;
     box-shadow: 3px 3px 6px black;
+    border-top-color: rgb(61, 162, 250);
 }
+
+.error_message_box{
+    min-height: 100px;
+    align-content: center;
+}
+
 .window_header{
-    padding: 2px;
+    padding: 3px 5px 8px;
     height : 30px;
     display: flex;
     justify-content: space-between;
     color:white;
     margin-top: none;
     background-color: var(--xp-blue);
+    align-content: center;
+    
 }
 .main_box{
     text-align: center;
@@ -40,6 +49,7 @@ button{
 }
 .corner_buttons{
     display: flex;
+    align-content: center;
 }
 .x_button{
 
@@ -85,6 +95,11 @@ h2{
 .icon:hover{
     background-color: rgba(255, 255, 255, 0.2);
     border: thin solid var(--xp-blue)
+
+}
+
+.icon:hover > .dropdown{
+    visibility: visible;
 }
 
 .icon_img{
@@ -98,6 +113,28 @@ h2{
 a{
     color:black;
     text-decoration: none;
+}
+
+.dropdown{
+    background-color: antiquewhite;
+    visibility: hidden;
+    border: solid thin black;
+    text-align: start;
+    display: block;
+    position:relative;
+    top:-116px;
+    left: 100%;
+    width: fit-content;
+}
+
+.dropdown p{
+    margin: 0;
+    padding: 2px 6px;
+}
+
+.dropdown p:hover, .dropdown a:hover{
+    color: white;
+    background-color: var(--xp-blue);
 }
 
 .footer{
@@ -143,19 +180,21 @@ a{
     height: 30%;
 }
 
-.file_window{
+.file_window, .file_editor{
     position:fixed;
     top:15vh;
     right: 30vw;
-    border: solid var(--xp-blue);
+    border:5px solid var(--xp-blue);
     background-color: antiquewhite;
     border-radius: 5px;
     width: 40%;
     box-shadow: 3px 3px 6px black;
+    border-top-color: rgb(61, 162, 250);
 }
 
-#file_list{
+#file_list, textarea{
     height: 50vh;
+    width: calc(100% - 40px);
     padding: 20px;
     display: flex;
     border-bottom: solid thin black;
@@ -168,7 +207,7 @@ a{
     border-radius: 5px;
 }
 
-.file_window form{
+.file_window form, .file_editor .form{
     padding: 10px;
     font-size: large;
     display: flex;
@@ -176,13 +215,55 @@ a{
     align-content: center;
 }
 
-.file_window input, .file_window label{
+.file_window input, .file_window label, .file_editor label, .file_editor input{
     font-size: large;
     margin: 0 10px;
     align-content: center;
 }
 
-.file_window select{
+.file_window select, .file_editor select{
     font-size: large;
     padding: 4px 10px;
 }
+
+.file_editor{
+    background-color: white ;
+}
+
+.edit_name{
+    background: transparent;
+    color: white;
+    font-size: larger;
+    font-weight: bold;
+    width: auto;
+}
+
+.fancy_file .file_text_holder{
+    background-color: white;
+    width: 50%;
+    margin: 30px auto;
+    height: 50vh;
+    border: solid thin black;
+    text-align: center;
+    padding:50px;
+
+}
+
+.fancy_file .file_text{
+    text-align: center;
+    margin: 0;
+    border: solid black 1px;
+    height: 100%;
+}
+
+.fancy_file{
+    background-color: gray;
+}
+
+.file_text_holder textarea{
+    resize: none;
+    padding: 0;
+    width: 100%;
+}
+
+
