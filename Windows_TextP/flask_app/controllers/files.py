@@ -62,6 +62,17 @@ def view_my_files():
 
     return render_template("file_list.html", user = User.get_one(session["user"]), all_files = all_files, where = session["where"])
 
+#READ
+@app.route("/files/<int:id>/properties")
+def file_properties(id):
+    if not "user" in session:
+        return redirect("/")
+    file = File.get_one(id)
+    author = User.get_one(file["user_id"])
+    
+    return render_template("file_properties.html", user = User.get_one(session["user"]), file = file, author = author, where = session["where"])
+
+
 #One File (READ + UPDATE FORM)
 @app.route("/files/<int:id>")
 def view_file(id):
@@ -76,14 +87,17 @@ def view_file(id):
 #UPDATE
 @app.route("/update_file/<int:id>", methods=["POST"])
 def update_file(id):
+    if int(session["user"]) != int(File.get_one(id)["user_id"]) and not User.get_one(session['user'])["is_admin"]:
+        flash("Access is denied!", "errors")
+        return redirect(f"/{session['where']}")
+
+
     if not File.validate_form(request.form):
         return redirect(f'/files/edit/{id}')# redirect to the route where the user form is rendered.
-    
-    if "is_shared" in request.form:
 
+    if "is_shared" in request.form:
         shared = True
     else:
-
         shared = False
 
     if File.get_one(id)["file_type"] == "pdf":
@@ -108,10 +122,7 @@ def update_file(id):
             flash("File already Exists with that Name!", "add_file")
             return redirect(f"/files/edit/{id}")
 
-
     new_file_id = File.update(data) #Called in a variable to capture ID
-        
-    
     return redirect(f"/{session['where']}")
 
 #DELETE

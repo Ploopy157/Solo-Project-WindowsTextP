@@ -3,7 +3,7 @@ from flask_app.config.mysqlconnection import connect_to_mysql
 from flask import flash
 #only needed for Email Validation
 import re
-EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+PASSWORD_REQUIREMENT = re.compile(r'^(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$')
 
 class User:
     def __init__( self , data ):
@@ -81,10 +81,10 @@ class User:
         is_valid = True # we assume this is true
 
         if len(form['username']) < 2:
-            flash("First name must be at least 2 characters.", "register")
+            flash("Username must be at least 2 characters!", "register")
             is_valid = False
             if not str.isalpha(form['username']):
-                flash("First Name must contain only Letters.", "register")
+                flash("Username must contain only Letters!", "register")
                 isvalid = False
                 if User.get_by_username(form['username']):
                     flash("Somebody already used this name!", "register")
@@ -92,12 +92,23 @@ class User:
                 
 
         if len(form['password']) < 8:
-            flash("Password must be at least 8 characters.", "register")
+            flash("Password must be at least 8 characters!", "register")
             is_valid = False
+        
+        if not PASSWORD_REQUIREMENT.match(form['password']):
+            flash("Password must include at least one number and one special character!", "register")
 
         if form['confirm'] != form["password"]:
-            flash("Password and Confirm Password must match.", "register")
+            flash("Password and Confirm Password must match!", "register")
             is_valid = False
+
+        if User.get_all() == False:
+            if form['is_admin'] == False:
+                print("FIRST USER MUST BE ADMIN")
+                flash("The first user must be an admin!", "register")
+                is_valid = False
+                
+
 
 
         #Check if User is first/last and make sure they are an admin.

@@ -16,6 +16,18 @@ body{
     position:fixed;
     top:40vh;
     right: 40vw;
+    background-color: antiquewhite;
+    width: 20%;
+    box-shadow: 3px 3px 6px black;
+    border-radius: 5px;
+    border: 5px solid var(--xp-blue);
+    border-top-color: rgb(61, 162, 250);
+}
+
+.properties_window{
+    position:fixed;
+    top:20vh;
+    right: 40vw;
     border: 5px solid var(--xp-blue);
     background-color: antiquewhite;
     border-radius: 5px;
@@ -71,7 +83,7 @@ button{
 
 }
 
-h2{
+h2, h3{
     padding: 4px;
     margin: 0;
 }
@@ -175,9 +187,50 @@ a{
     margin-right: 5%;
 }
 .start_menu{
+    display: inline-block;
     background-color: antiquewhite;
-    width: 20%;
-    height: 30%;
+    width: 25vw;
+    height: 60vh;
+    border-radius: 5px;
+    border: 5px solid var(--xp-blue);
+    border-top-color: rgb(61, 162, 250);
+}
+#menu_header{
+    padding: 20px;
+    background-color: var(--xp-blue);
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+}
+#menu_header h2{
+    padding: 20px;
+    color:white;
+    margin: 0;
+}
+
+.profile_picture{
+    height: 75px;
+    width: 75px;
+    border: solid rgb(255, 255, 255);
+    border-top:solid rgb(158, 244, 250);
+    border-left:solid rgb(158, 244, 250);
+    box-shadow: 3px 3px 6px black;
+}
+#logout_button{
+    box-sizing: border-box;
+    width: 100%;
+    bottom: 0px;
+    display: block;
+    text-align: end;
+    align-content: end;
+    padding: 6px 20px;
+    font-size: larger;
+
+}
+
+#logout_button:hover{
+    background-color: var(--xp-blue);
+    color: white;
 }
 
 .file_window, .file_editor{
@@ -267,3 +320,47 @@ a{
 }
 
 
+.properties_window label{
+    display: inline-block;
+    width: 100%;
+}
+.properties_window, .properties_window input, .properties_window select, .properties_window label{
+    font-size: large;
+}
+
+#property_list{
+    margin: 10px;
+    padding:10px;
+    background-color: white;
+    border:solid black thin;
+}
+
+.properties_icon{
+    height: 64px;
+    width: 64px;
+}
+.lineicon{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+
+}
+
+.lineicon input{
+    height:30% ;
+    align-self: center;
+    width:65%;
+    padding: 5px;
+}
+
+.property_section{
+    padding: 15px 5px;
+    border-bottom: solid thin black
+}
+
+.apply_button{
+    width: 20%;
+    margin: 10px 70%;
+    padding: 3px;
+    border-radius: 6px;
+}

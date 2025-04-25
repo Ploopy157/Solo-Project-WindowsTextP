@@ -36,20 +36,25 @@ def delete_user(user_id):
 #CREATE METHOD
 @app.route('/register', methods=["POST"])
 def create_user():
-    if not User.validate_form(request.form):
-        return redirect('/')# redirect to the route where the user form is rendered.
 
-    pw_hash = bcrypt.generate_password_hash(request.form['password'])
-
+    # Weird stuff because checkboxes area a pain.
     if "is_admin" in request.form:
         adminTrue = True
     else:
         adminTrue = False
-    data = {
+
+    data = { 
         "username" : request.form["username"],
         "is_admin" : adminTrue,
-        "password" : pw_hash
+        "password" : request.form["password"],
+        "confirm"  : request.form["confirm"]
     }
+    if not User.validate_form(data):
+        return redirect('/')
+
+    pw_hash = bcrypt.generate_password_hash(request.form['password'])
+    data["password"] = pw_hash
+    data["confirm"] = "Sanitized"
 
     new_user_id = User.save(data) #Called in a variable to capture ID
     session["user"] = new_user_id

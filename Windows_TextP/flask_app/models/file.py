@@ -34,7 +34,7 @@ class File:
         results = connect_to_mysql('windows_textp_db').query_db(query, {"id": id})
         # "results" is an array of dictionaries.
         if not results:
-            return false
+            return False
         file = results[0] 
         return file
 

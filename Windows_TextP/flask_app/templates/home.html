@@ -24,22 +24,6 @@
             <p>Shared Files</p>
         </div></a>
     </div>
-    <div class = "xp_window">
-        <div class = "window_header">
-            <h2>Notice</h2>
-            <div class = "corner_buttons">
-                <p class = "corner_button">_</p>
-                <p class = "corner_button">⧉</p>
-                <button class = "x_button corner_button" onclick="closeNotification()">X</button>
-            </div>
-
-        </div>
-
-        <div class = main_box>
-        <p>This is a Notification</p>
-        <button id = "noticication_close" onclick="closeNotification()">Ok</button>
-        </div>
-    </div>
     <div class="footer">
         <div id="taskbar">
             <p id = "start_button">
@@ -47,9 +31,10 @@
         </div>
         <div class="start_menu">
             <div id="menu_header">
-                <p>{{user.username}}</p>
+                <h2>{{user.username}}</h2>
+                <img class = "profile_picture" src ="{{ url_for('static', filename='images/default_pfp.jpg') }}" >
             </div>
-            <a is = "logout" href = "/logout">Log Out</a>
+            <a id = "logout_button" href = "/logout">Log Out</a>
         </div>
     </div>
 </body>

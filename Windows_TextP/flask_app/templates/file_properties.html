@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows XP Browser
+    </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body>
+
+    <div class="icon_list">
+        
+        <a href = "/edit_users"><div class="icon">
+            <img src="{{ url_for('static', filename='images/users_icon.png') }}" alt="users icon" class="icon_img">
+            <p>User Accounts</p>
+        </div></a>
+        <a href = "/my_files"><div class="icon">
+            <img src="{{ url_for('static', filename='images/folder_icon.png') }}" alt="users icon" class="icon_img">
+            <p>My Files</p>
+        </div></a>
+        <a href = "/shared_files"><div class="icon">
+            <img src="{{ url_for('static', filename='images/folder_icon.png') }}" alt="users icon" class="icon_img">
+            <p>Shared Files</p>
+        </div></a>
+    </div>
+    <form class = "properties_window" action = "/update_file/{{file.id}}" method = "POST">
+        <div class = "window_header">
+            <h3>{{file.name}}'s Properties</h3>
+            <div class = "corner_buttons">
+                <p class = "corner_button">_</p>
+                <p class = "corner_button">⧉</p>
+                <button class = "x_button corner_button" onclick="closeNotification()">X</button>
+            </div>
+        </div>
+
+        <div>
+            <div id = property_list>
+                <div class="lineicon property_section">
+                    <img class = "icon properties_icon"
+                    src = "{{ url_for('static', filename='images/' + file.file_type + '_icon.png') }}"
+                    >
+                    <input type="text" name = "name" value = "{{file.name}}">
+                </div>
+                <div class = property_section>
+                    <label for="file_type" >File Type:
+                        <select name="file_type" id="file_type" value = "{{file.file_type}}">
+                            <option value="{{file.file_type}}">.{{file.file_type}} file</option>
+                            <option value="txt">Text File</option>
+                            <option value = "rtf">Rich Text Document</option>
+                            <option value = "pdf">PDF Document</option>
+                        </select>
+
+                        <p>Creator: {{author.username}}</p>
+                    </label>
+                </div>
+                <div class = "property_section">
+                    <p>Created at: {{file.created_at}}</p>
+                    <p>Updated at: {{file.updated_at}}</p>
+                </div>
+                
+                <div class = "property_section" style="border-bottom: none;">
+                    <label for = "is_shared">Shared File?
+                        {% if file.is_shared == "1" %}
+                        <input type="checkbox" name = "is_shared" checked/>
+                        {% else %}
+                        <input type="checkbox" name = "is_shared"/>
+                        {% endif %}
+                    </label>
+                </div>
+
+            </div>
+            <input type="hidden" name ="where" value={{where}} />
+            <input type="hidden" name ="text" value={{file.text}} />
+            <input type="submit" value = "Apply" class = "apply_button">           
+        </div>
+    </form>
+
+    <div class="footer">
+        <div id="taskbar">
+            <p id = "start_button">
+                <img src="../static/images/logo.png">start</p>
+        </div>
+        <div class="start_menu">
+            <div id="menu_header">
+                <p>{{user.username}}</p>
+                <img class = "profile_picture" src ="{{ url_for('static', filename='images/default_pfp.jpg') }}" >
+            </div>
+            <a is = "logout" href = "/logout">Log Out</a>
+        </div>
+    </div>
+    {% with messages =get_flashed_messages(category_filter=["errors"]) %}     <!-- declare a variable called messages -->
+    {% if messages %}                            <!-- check if there are any messages -->
+    <div id = "error_window">
+        <div class = "window_header">
+            <h2>Error</h2>
+            <div class = "corner_buttons">
+                <p class = "corner_button">_</p>
+                <p class = "corner_button">⧉</p>
+                <button class = "x_button corner_button" onclick="closeNotification()">X</button>
+            </div>
+
+        </div>
+
+        <div class = main_box>
+            <div class = "error_message_box">
+                {% for message in messages %}
+                    <p class = "error_message">- {{ message }}</p>
+                {% endfor %}
+            </div>
+            <button id = "noticication_close" onclick="closeNotification()">Close</button>
+        </div>
+    </div>
+    {% endif %}
+    {% endwith %}
+</body>
+
+<script>
+    const startButton = document.getElementById("start_button")
+    // startButton.addEventListener(click, function(){
+
+    // })
+    const notification_window = document.getElementById("error_window")
+
+    const closeNotification = () =>{
+        notification_window.style.display = "none";
+    };
+
+    const icons = document.getElementsByClassName("icon").oncontextmenu = function() {
+        alert('right click!')
+    }
+
+</script>
+    
+
+</html>
