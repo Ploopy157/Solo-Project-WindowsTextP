@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows XP Browser
+    </title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body>
+
+    <div class="icon_list">
+        
+        <a href = "/edit_users"><div class="icon">
+            <img src="{{ url_for('static', filename='images/users_icon.png') }}" alt="users icon" class="icon_img">
+            <p>User Accounts</p>
+        </div></a>
+        <a href = "/my_files"><div class="icon">
+            <img src="{{ url_for('static', filename='images/folder_icon.png') }}" alt="users icon" class="icon_img">
+            <p>My Files</p>
+        </div></a>
+        <a href = "/shared_files"><div class="icon">
+            <img src="{{ url_for('static', filename='images/folder_icon.png') }}" alt="users icon" class="icon_img">
+            <p>Shared Files</p>
+        </div></a>
+    </div>
+    <form class = "properties_window" action = "/update_user:{{user.id}}" method = "POST" enctype="multipart/form-data">
+        <div class = "window_header">
+            <h3>User Accounts</h3>
+            <div class = "corner_buttons">
+                <p class = "corner_button">_</p>
+                <p class = "corner_button">⧉</p>
+                <a class = "x_button corner_button" href="/home">X</a>
+            </div>
+        </div>
+
+        <div>
+            <div id = property_list>
+                <div class="lineicon property_section" style="justify-content: space-evenly;">
+                    <img class = "icon properties_icon"
+                    src = "{{ url_for('static', filename='images/users_icon.png') }}"
+                    >
+                    <label style=" width:60%">Username:<br>
+                        <input name = "username" value = "{{user.username}}" style=" width:100%">
+                    </label>
+
+                </div>
+                <div class = "property_section">
+                    Profile Picture:
+                    <div style = "display: flex; justify-content: space-between;">
+                        {% if user.profile_picture == none %}
+                        <img class = "icon properties_icon" src ="{{ url_for('static', filename='images/default_pfp.jpg') }}" >
+                        {% else %}
+                        <img class = "icon properties_icon" src ="{{ url_for('static', filename='uploads/'+ user.profile_picture ) }}" >
+                        {% endif %}
+                        <label for="profile_picture" style="margin:3px 10%;">
+                            <input type="file" name = "profile_picture">
+                        </label>
+                    </div>
+                </div>
+                <div class="property_section" style="justify-content: space-evenly;">
+                    <p>Change Password:</p>
+                    <label style=" width:60%">New Password:<br>
+                        <input name = "password" type = "password" style="width:90%">
+                    </label>
+                    <label style=" width:60%">Confirm New Password:<br>
+                        <input name = "confirm" type = "password" style="width:90%">
+                    </label>
+
+                </div>
+                
+                <div class = "property_section" style="border-bottom: none;">
+                    <label for = "is_admin">Administrator Account?
+                        {% if user.is_admin == 1 %}
+                        <input type="checkbox" name = "is_admin" checked/>
+                        {% else %}
+                        <input type="checkbox" name = "is_admin"/>
+                        {% endif %}
+                    </label>
+                    <label style=" width:60%">Current Password:<br>
+                        <input name = "old_password" type = "password">
+                    </label>
+                </div>
+
+            </div>
+            <div class = "property_buttons">
+                <input type="hidden" name ="where" value={{where}} />
+                <a class = "apply_button" href = "/users/delete/{{user.id}}">Delete User</a>
+                <input type="submit" value = "Apply" class = "apply_button">    
+            </div>
+
+        </div>
+    </form>
+
+    <div class="footer">
+        <div id="taskbar">
+            <button id = "start_button" onclick=openStart()>
+                <img src="{{ url_for('static', filename='images/logo.png') }}">start
+            </button>
+        </div>
+        <div id = "start_menu">
+            <div id="menu_header">
+                <h2>{{user.username}}</h2>
+                {% if user.profile_picture == none %}
+                <img class = "profile_picture" src ="{{ url_for('static', filename='images/default_pfp.jpg') }}" >
+                {% else %}
+                <img class = "profile_picture" src ="{{ url_for('static', filename='uploads/'+ user.profile_picture ) }}" >
+                {% endif %}
+            </div>
+            <a id = "logout_button" href = "/logout">Log Out</a>
+        </div>
+    </div>
+    {% with messages =get_flashed_messages(category_filter=["errors", "register"]) %}     <!-- declare a variable called messages -->
+    {% if messages %}                            <!-- check if there are any messages -->
+    <div id = "error_window">
+        <div class = "window_header">
+            <h2>Error</h2>
+            <div class = "corner_buttons">
+                <p class = "corner_button">_</p>
+                <p class = "corner_button">⧉</p>
+                <button class = "x_button corner_button" onclick="closeNotification()">X</button>
+            </div>
+
+        </div>
+
+        <div class = main_box>
+            <div class = "error_message_box">
+                {% for message in messages %}
+                    <p class = "error_message">- {{ message }}</p>
+                {% endfor %}
+            </div>
+            <button id = "noticication_close" onclick="closeNotification()">Close</button>
+        </div>
+    </div>
+    {% endif %}
+    {% endwith %}
+</body>
+
+<script>
+    console.log("{{user.is_admin}}")
+    const startButton = document.getElementById("start_button")
+    const startMenu = document.getElementById("start_menu")
+
+    const openStart = () => {
+        if (startMenu.style.display != "inline-block"){
+            startMenu.style.display = "inline-block";
+        }
+        else{
+            startMenu.style.display = "none";
+        }
+
+    }
+    const notification_window = document.getElementById("error_window")
+
+    const closeNotification = () =>{
+        notification_window.style.display = "none";
+    };
+
+    const icons = document.getElementsByClassName("icon").oncontextmenu = function() {
+        alert('right click!')
+    }
+
+</script>
+    
+
+</html>

@@ -58,20 +58,27 @@
 
         <div id = "loginDiv">
             <h2>Login</h2>
-            <form action = "/login" method = "POST">
-
-                <label for = "username">Username:</label>
-                <br>
-                <input name = "username"/>
-                <br>
-
-                <label for = "loginPassword">Password</label>
-                <br>
-                <input name = "loginPassword" type = "password"/>
-                <br>
-
-                <input class = "SubmitButton" type = "submit" value = "Login"/>
-                {% with messages =get_flashed_messages(category_filter=["login"]) %}     <!-- declare a variable called messages -->
+            <div class = "user_list">
+                {% for user in all_users%}
+                    <button class="user_card" id = "user_card_{{user.id}}" onclick="OpenForm(this)">
+                        
+                        <div class="image_and_name">
+                            {% if user.profile_picture == none %}
+                            <img class = "profile_picture" src ="{{ url_for('static', filename='images/default_pfp.jpg') }}" >
+                            {% else %}
+                            <img class = "profile_picture" src ="{{ url_for('static', filename='uploads/'+ user.profile_picture ) }}" >
+                            {% endif %}
+                            <p>{{user.username}}</p>
+                        </div>
+                        <form class = "password_form" action = "/login" method = "POST">
+                            <label for = "loginPassword">Password:</label>
+                            <input name = "loginPassword" type = "password"/>
+                            <input type="hidden" name = "username" value = "{{user.username}}">
+                            <input id = "login_button" class = "SubmitButton" type = "submit" value = ">"/>
+                        </form>
+                    </button>
+                {% endfor %}
+                {% with messages = get_flashed_messages(category_filter=["login"]) %}     <!-- declare a variable called messages -->
                 {% if messages %}                            <!-- check if there are any messages -->
                     <ul class=flashes>
                     {% for message in messages %}
@@ -80,9 +87,21 @@
                     </ul>
                 {% endif %}
                 {% endwith %}
-            </form>
+            </div>
+
         </div>
+
     </div>
 </div>
 </body>
+<script>
+    let  SelectedUser = false
+    const OpenForm = (button) =>{
+        if (SelectedUser != false){
+            document.getElementById(SelectedUser).className = "user_card"
+        }
+        SelectedUser = button.id
+        document.getElementById(SelectedUser).className = "user_card open_card"
+    }
+</script>
 </html>

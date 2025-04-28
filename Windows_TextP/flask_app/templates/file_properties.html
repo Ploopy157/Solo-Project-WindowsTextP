@@ -30,7 +30,7 @@
             <div class = "corner_buttons">
                 <p class = "corner_button">_</p>
                 <p class = "corner_button">⧉</p>
-                <button class = "x_button corner_button" onclick="closeNotification()">X</button>
+                <a class = "x_button corner_button" href="/home">X</a>
             </div>
         </div>
 
@@ -69,24 +69,32 @@
                     </label>
                 </div>
 
-            </div>
-            <input type="hidden" name ="where" value={{where}} />
-            <input type="hidden" name ="text" value={{file.text}} />
-            <input type="submit" value = "Apply" class = "apply_button">           
+            </div>     
+            <div class = "property_buttons">
+                <input type="hidden" name ="where" value={{where}} />
+                <input type="hidden" name ="text" value={{file.text}} />
+                <a class = "apply_button" href = "/files/delete/{{file.id}}">Delete File</a>
+                <input type="submit" value = "Apply" class = "apply_button">    
+            </div>        
         </div>
     </form>
 
     <div class="footer">
         <div id="taskbar">
-            <p id = "start_button">
-                <img src="../static/images/logo.png">start</p>
+            <button id = "start_button" onclick=openStart()>
+                <img src="{{ url_for('static', filename='images/logo.png') }}">start
+            </button>
         </div>
-        <div class="start_menu">
+        <div id = "start_menu">
             <div id="menu_header">
-                <p>{{user.username}}</p>
+                <h2>{{user.username}}</h2>
+                {% if user.profile_picture == none %}
                 <img class = "profile_picture" src ="{{ url_for('static', filename='images/default_pfp.jpg') }}" >
+                {% else %}
+                <img class = "profile_picture" src ="{{ url_for('static', filename='uploads/'+ user.profile_picture ) }}" >
+                {% endif %}
             </div>
-            <a is = "logout" href = "/logout">Log Out</a>
+            <a id = "logout_button" href = "/logout">Log Out</a>
         </div>
     </div>
     {% with messages =get_flashed_messages(category_filter=["errors"]) %}     <!-- declare a variable called messages -->
@@ -117,9 +125,17 @@
 
 <script>
     const startButton = document.getElementById("start_button")
-    // startButton.addEventListener(click, function(){
+    const startMenu = document.getElementById("start_menu")
 
-    // })
+    const openStart = () => {
+        if (startMenu.style.display != "inline-block"){
+            startMenu.style.display = "inline-block";
+        }
+        else{
+            startMenu.style.display = "none";
+        }
+
+    }
     const notification_window = document.getElementById("error_window")
 
     const closeNotification = () =>{

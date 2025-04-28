@@ -131,5 +131,6 @@ def delete_file(id):
 
     if session["user"] == (File.get_one(id)["user_id"]) or User.get_one(session['user'])["is_admin"]:
         File.delete(id)
+        
     else: flash("Access is denied!", "errors")
     return redirect(f"/{session['where']}")

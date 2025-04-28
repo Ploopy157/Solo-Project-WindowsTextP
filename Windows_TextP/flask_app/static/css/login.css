@@ -111,4 +111,62 @@ ul{
     list-style-type: none;
 }
 
+.user_list{
+    margin:auto;
+    width:50%!important;
+}
 
+.user_card{
+    width: 100%!important;
+    margin: 10px auto;
+    background-color: transparent;
+    border:none;
+    padding:10px
+}
+.user_card:hover{
+    background-color: rgba(255, 255, 255, 0.342);
+}
+    
+
+.image_and_name{
+    width: 100%!important;
+    font-size: x-large;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+}
+.image_and_name p{
+    width: 50%;
+}
+
+.password_form{
+    display: none;
+}
+
+
+.profile_picture{
+    height: 75px;
+    width: 75px;
+    border: solid rgb(255, 255, 255);
+    border-top:solid rgb(158, 244, 250);
+    border-left:solid rgb(158, 244, 250);
+    box-shadow: 3px 3px 6px black;
+}
+
+.open_card form{
+    display: flex;
+    margin: 10px 0;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.open_card input{
+    width: 50%;
+    font-size: large;
+    font-weight: bolder;
+}
+
+#Login_button{
+    margin:0;
+    width: 10%
+}

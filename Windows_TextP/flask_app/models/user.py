@@ -5,6 +5,7 @@ from flask import flash
 import re
 PASSWORD_REQUIREMENT = re.compile(r'^(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$')
 
+
 class User:
     def __init__( self , data ):
         self.id = data['id']
@@ -14,7 +15,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
 
-        self.profile_picture = None
+        self.profile_picture = data['profile_picture']
 
 #GET ALL
     @classmethod
@@ -53,7 +54,7 @@ class User:
 #CREATE    
     @classmethod
     def save(cls, data):
-        query = "INSERT INTO users (username, is_admin, password, created_at, updated_at) VALUES (%(username)s, %(is_admin)s, %(password)s, NOW(), NOW());"
+        query = "INSERT INTO users (username, is_admin, password, created_at, updated_at, profile_picture) VALUES (%(username)s, %(is_admin)s, %(password)s, NOW(), NOW(), NULL);"
         # insert call returns ID
         data_id = connect_to_mysql('windows_textp_db').query_db(query, data) 
         return data_id
@@ -63,7 +64,7 @@ class User:
     def update(cls, data):
         query = """
                 UPDATE users
-                SET user = %(username)s, is_admin = %(is_admin)s, password = %(password)s, updated_at = NOW()
+                SET username = %(username)s, is_admin = %(is_admin)s, password = %(password)s, profile_picture = %(profile_picture)s, updated_at = NOW()
                 WHERE id = %(id)s;"""
         results = connect_to_mysql('windows_textp_db').query_db(query, data)
         return results
@@ -108,9 +109,46 @@ class User:
                 flash("The first user must be an admin!", "register")
                 is_valid = False
                 
+        #Check if User is first/last and make sure they are an admin.
 
+        return is_valid
 
+#VALIDATION 2
+    @staticmethod
+    def validate_update_form(form):
+        is_valid = True # we assume this is true
 
+        if len(form['username']) < 2:
+            flash("Username must be at least 2 characters!", "register")
+            is_valid = False
+            if not str.isalpha(form['username']):
+                flash("Username must contain only Letters!", "register")
+                isvalid = False
+                if User.get_by_username(form['username']):
+                    flash("Somebody already used this name!", "register")
+                    is_valid = False
+                
+        if form['password']:
+            if len(form['password']) < 8:
+                flash("Password must be at least 8 characters!", "register")
+                is_valid = False
+        
+            if not PASSWORD_REQUIREMENT.match(form['password']):
+                flash("Password must include at least one number and one special character!", "register")
+
+            if form['confirm'] != form["password"]:
+                flash("Password and Confirm Password must match!", "register")
+                is_valid = False
+
+        if form['is_admin'] == False:
+            other_admins = False
+            for u in User.get_all():
+                if u.is_admin == 1 and u.id != form['id']:
+                    other_admins = True
+            if not other_admins:
+                flash("There must always be 1 admin!", "register")
+                is_valid = False
+                
         #Check if User is first/last and make sure they are an admin.
 
         return is_valid

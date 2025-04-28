@@ -26,13 +26,18 @@
     </div>
     <div class="footer">
         <div id="taskbar">
-            <p id = "start_button">
-                <img src="../static/images/logo.png">start</p>
+            <button id = "start_button" onclick=openStart()>
+                <img src="{{ url_for('static', filename='images/logo.png') }}">start
+            </button>
         </div>
-        <div class="start_menu">
+        <div id = "start_menu">
             <div id="menu_header">
                 <h2>{{user.username}}</h2>
+                {% if user.profile_picture == none %}
                 <img class = "profile_picture" src ="{{ url_for('static', filename='images/default_pfp.jpg') }}" >
+                {% else %}
+                <img class = "profile_picture" src ="{{ url_for('static', filename='uploads/'+ user.profile_picture ) }}" >
+                {% endif %}
             </div>
             <a id = "logout_button" href = "/logout">Log Out</a>
         </div>
@@ -41,14 +46,18 @@
 
 <script>
     const startButton = document.getElementById("start_button")
-    // startButton.addEventListener(click, function(){
+    const startMenu = document.getElementById("start_menu")
 
-    // })
-    const notification_window = document.getElementById("xp_window")
+    const openStart = () => {
+        if (startMenu.style.display != "inline-block"){
+            startMenu.style.display = "inline-block";
+        }
+        else{
+            startMenu.style.display = "none";
+        }
 
-    const closeNotification = () =>{
-        notification_window.style.display = "none";
-    };
+    }
+
 </script>
     
 

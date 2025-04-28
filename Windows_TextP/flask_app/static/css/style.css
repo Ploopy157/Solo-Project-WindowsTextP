@@ -22,6 +22,7 @@ body{
     border-radius: 5px;
     border: 5px solid var(--xp-blue);
     border-top-color: rgb(61, 162, 250);
+    z-index: 2;
 }
 
 .properties_window{
@@ -34,11 +35,13 @@ body{
     width: 20%;
     box-shadow: 3px 3px 6px black;
     border-top-color: rgb(61, 162, 250);
+    z-index: 1;
 }
 
 .error_message_box{
     min-height: 100px;
     align-content: center;
+    z-index: 2;
 }
 
 .window_header{
@@ -182,12 +185,16 @@ a{
 #start_button:hover{
     background-color: rgb(0, 170, 0);
 }
+
+
 #start_button img{
     width: 32px;
     margin-right: 5%;
 }
-.start_menu{
-    display: inline-block;
+
+
+#start_menu{
+    display: none;
     background-color: antiquewhite;
     width: 25vw;
     height: 60vh;
@@ -195,6 +202,7 @@ a{
     border: 5px solid var(--xp-blue);
     border-top-color: rgb(61, 162, 250);
 }
+
 #menu_header{
     padding: 20px;
     background-color: var(--xp-blue);
@@ -251,6 +259,7 @@ a{
     padding: 20px;
     display: flex;
     border-bottom: solid thin black;
+    z-index: 1;
 }
 
 #add_file{
@@ -258,6 +267,9 @@ a{
     padding: 6px;
     margin: 10px 80%;
     border-radius: 5px;
+}
+.file .file_window{
+    z-index: 1;
 }
 
 .file_window form, .file_editor .form{
@@ -281,6 +293,7 @@ a{
 
 .file_editor{
     background-color: white ;
+    z-index: 1;
 }
 
 .edit_name{
@@ -326,6 +339,7 @@ a{
 }
 .properties_window, .properties_window input, .properties_window select, .properties_window label{
     font-size: large;
+    z-index: 1;
 }
 
 #property_list{
@@ -359,8 +373,16 @@ a{
 }
 
 .apply_button{
-    width: 20%;
-    margin: 10px 70%;
+    background-color: white;
+    width: 30%;
     padding: 3px;
     border-radius: 6px;
+    border: solid thin black;
+    text-align: center;
+}
+
+.property_buttons{
+    display: flex; 
+    justify-content:space-between; 
+    padding :15px
 }
