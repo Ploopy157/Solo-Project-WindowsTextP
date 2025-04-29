@@ -4,6 +4,7 @@ html{
 #content{
     background-image: url("../images/login_background.jpg");
     background-size :cover;
+    background-repeat: no-repeat;
     height:100vh;
     margin-top: 0;
     padding-top: 0

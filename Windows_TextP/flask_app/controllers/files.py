@@ -130,7 +130,15 @@ def update_file(id):
 def delete_file(id):
 
     if session["user"] == (File.get_one(id)["user_id"]) or User.get_one(session['user'])["is_admin"]:
-        File.delete(id)
         
-    else: flash("Access is denied!", "errors")
+        if File.get_one(id)["name"] == "System32":
+            return redirect("/BSOD")
+            
+        File.delete(id)
+    else: 
+        flash("Access is denied!", "errors")
     return redirect(f"/{session['where']}")
+
+@app.route('/BSOD')
+def bluescreen():
+    return render_template("BSOD.html")

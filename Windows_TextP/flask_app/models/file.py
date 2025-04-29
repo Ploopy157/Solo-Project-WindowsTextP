@@ -86,7 +86,8 @@ class File:
                     "is_admin": row['is_admin'],
                     "password": row['password'],
                     "created_at": row['users.created_at'],
-                    "updated_at": row['users.updated_at']
+                    "updated_at": row['users.updated_at'],
+                    "profile_picture": row['profile_picture']
                 }
                 # Create the class instance
                 author = user.User(one_files_author_info)
